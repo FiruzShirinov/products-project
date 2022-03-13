@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Auth::routes([
+    'register'  => false,
+    'reset'     => false,
+    'verify'    => false
+]);
+
+Route::middleware('auth')->group(function () {
+    Route::resources([
+        'users'     => UserController::class,
+        'products'  => ProductController::class
+    ]);
 });

@@ -15,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::get();
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -25,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
@@ -36,7 +37,8 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        Product::create($request->validated());
+        return redirect(route('products.index'));
     }
 
     /**
@@ -47,7 +49,10 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        if(request()->ajax()){
+            return response()->json(view('products.show', compact('product'))->render());
+        }
+        abort(404);
     }
 
     /**
@@ -58,7 +63,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        if(request()->json()){
+            return response()->json(view('products.edit', compact('product'))->render());
+        }
+        abort(404);
     }
 
     /**
@@ -70,7 +78,9 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $this->authorize('update', $product);
+        $product->update($request->validated());
+        return redirect(route('products.index'));
     }
 
     /**
@@ -81,6 +91,31 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $this->authorize('delete', $product);
+        $product->delete();
+        return redirect(route('products.index'));
+    }
+
+    /**
+     * Display deleted listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        $products = Product::onlyTrashed()->get();
+        return view('products.index', compact('products'));
+    }
+
+    /**
+     * Restore the specified resource in storage.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function restore(Product $product)
+    {
+        $product->restore();
+        return redirect(route('products.index'));
     }
 }

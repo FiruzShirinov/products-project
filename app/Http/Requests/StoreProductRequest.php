@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProductRequest extends FormRequest
@@ -13,7 +14,7 @@ class StoreProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,36 @@ class StoreProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'article'   => 'required|alpha_num|unique:products,article',
+            'name'      => 'required|min:10',
+            'status'    => 'required|string',
+            'user_id'   => 'required|numeric|min:1',
+            'data'      => 'nullable'
         ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'article'   => 'Артикул продукта',
+            'name'      => 'Название продукта',
+        ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'user_id' => Auth::id(),
+        ]);
     }
 }

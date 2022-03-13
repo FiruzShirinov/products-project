@@ -1,0 +1,3 @@
+/*! For license information please see sb-admin-scripts.js.LICENSE.txt */
+window.addEventListener("DOMContentLoaded",(function(e){var t=document.body.querySelector("#sidebarToggle");t&&t.addEventListener("click",(function(e){e.preventDefault(),document.body.classList.toggle("sb-sidenav-toggled"),localStorage.setItem("sb|sidebar-toggle",document.body.classList.contains("sb-sidenav-toggled"))}))}));
+//# sourceMappingURL=sb-admin-scripts.js.map

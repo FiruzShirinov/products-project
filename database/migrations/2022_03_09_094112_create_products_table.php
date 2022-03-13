@@ -15,7 +15,13 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('article', 255)->unique();
+            $table->string('name', 255);
+            $table->string('status', 255);
+            $table->jsonb('data')->nullable();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

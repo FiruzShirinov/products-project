@@ -1,0 +1,15 @@
+.border-bottom-danger-custom {
+    border-bottom: 1px solid #ED1C24;
+}
+.text-danger-custom {
+    color: #ED1C24;
+}
+.text-decoration-underline-dotted-sm {
+    text-decoration: underline dotted;
+    font-size: .9rem;
+}
+td pre {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+}
