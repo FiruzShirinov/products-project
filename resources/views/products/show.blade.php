@@ -1,9 +1,12 @@
 <div class="d-flex justify-content-between py-4">
     <h4 class="m-0">{{ $product->name }}</h4>
     <div class="ms-auto me-3 d-flex justify-content-center">
+        @can('update', $product)
         <a href="javascript:void(0);" class="p-1 btn btn-link btn-sm product-edit" data-id="{{ $product->id }}">
             <i class="fas fa-edit"></i>
         </a>
+        @endcan
+        @can('delete', $product)
         <form method="POST" action="{{ route('products.destroy', $product) }}" id="destroy-{{ $product->id }}">
             @csrf
             @method ("DELETE")
@@ -11,6 +14,7 @@
                 <i class="fas fa-trash-alt"></i>
             </button>
         </form>
+        @endcan
     </div>
     <button type="button" class="mt-1 btn-close btn-close-white"></button>
 </div>

@@ -6,7 +6,7 @@
 @section('content')
 <div class="row">
     <div class="col-6">
-        <div class="table-responsive">
+        <div class="table-responsive vh-100">
             <table class="table table-sm align-middle col-6 table-hover" id="products" width="100%" cellspacing="0">
                 <thead>
                     <tr>

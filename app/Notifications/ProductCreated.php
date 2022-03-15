@@ -43,9 +43,11 @@ class ProductCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject('Добавлен новый продукт')
+                    ->greeting('Добрый день!')
                     ->line("Новый продукт {$this->message['product_name']} был создан.")
                     ->action('Посмотреть продукт', $this->message['product_url'])
-                    ->line('Благодарим Вас за использование нашего приложения!');
+                    ->salutation('Благодарим Вас за использование нашего приложения!');
     }
 
     /**
